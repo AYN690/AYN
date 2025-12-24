@@ -1,0 +1,812 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ariyan Da - Project Manager</title>
+    
+</head>
+<body>
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-gradient-light: linear-gradient(135deg, #2d3748 0%, #4a5568 25%, #718096 50%, #4a5568 75%, #2d3748 100%);
+    --bg-gradient-dark: linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #533483 75%, #1a1a2e 100%);
+    --card-bg-light: linear-gradient(145deg, rgba(247, 250, 252, 0.95), rgba(237, 242, 247, 0.95));
+    --card-bg-dark: linear-gradient(145deg, rgba(30, 30, 46, 0.95), rgba(26, 26, 46, 0.95));
+    --text-light: rgba(255, 255, 255, 0.95);
+    --text-dark: rgba(255, 255, 255, 0.9);
+    --accent: #4299e1;
+    --accent-secondary: #3182ce;
+    --hero-card-bg: linear-gradient(135deg, rgba(15, 23, 42, 0.72), rgba(30, 64, 175, 0.78));
+    --hero-card-border: rgba(99, 102, 241, 0.35);
+    --hero-card-text: rgba(248, 250, 252, 0.95);
+    --hero-card-subtitle: rgba(226, 232, 240, 0.9);
+    --hero-body-text: rgba(226, 232, 240, 0.92);
+    --greeting-title-gradient: linear-gradient(120deg, #7dd3fc 0%, #c084fc 50%, #f472b6 100%);
+    --greeting-title-shadow: 0 18px 38px rgba(79, 70, 229, 0.4);
+}
+
+html[data-theme="dark"] {
+    --hero-card-bg: linear-gradient(135deg, rgba(2, 6, 23, 0.92), rgba(15, 23, 42, 0.95));
+    --hero-card-border: rgba(14, 165, 233, 0.35);
+    --hero-card-text: rgba(248, 250, 252, 0.97);
+    --hero-card-subtitle: rgba(191, 219, 254, 0.92);
+    --hero-body-text: rgba(226, 232, 240, 0.94);
+    --greeting-title-gradient: linear-gradient(120deg, #f472b6 0%, #c084fc 45%, #60a5fa 100%);
+    --greeting-title-shadow: 0 20px 45px rgba(14, 165, 233, 0.4);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: var(--bg-gradient-light);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+    position: relative;
+    transition: background 0.5s ease;
+}
+
+[data-theme="dark"] body {
+    background: var(--bg-gradient-dark);
+}
+
+.top-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 20px 30px;
+    animation: slideDown 0.6s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.nav-container {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    color: white;
+}
+
+.nav-link.active {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+.theme-toggle {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 0;
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.theme-toggle svg {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover svg {
+    transform: rotate(15deg);
+}
+
+.moon-icon {
+    display: none;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    gap: 60px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 80px;
+}
+
+.box0 {
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+    background: var(--card-bg-light);
+    border-radius: 30px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+    backdrop-filter: blur(10px);
+    transition: all 0.5s ease;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+[data-theme="dark"] .box0 {
+    background: var(--card-bg-dark);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+}
+
+.box0:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35),
+                0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.box1 {
+    height: auto;
+    width: 100%;
+    background: transparent;
+    margin: 0;
+}
+
+.box2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.box3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.box3 img {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border: 5px solid rgba(66, 153, 225, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.box3 img:hover {
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 0 15px 40px rgba(66, 153, 225, 0.4);
+}
+
+.box4 {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.box4 h1 {
+    margin: 0;
+    font-size: 42px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
+    line-height: 1.2;
+}
+
+.box5 {
+    text-align: center;
+    margin: 15px 0;
+}
+
+.matn {
+    margin: 0;
+    font-size: 18px;
+    color: #4299e1;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.box6 {
+    width: 100%;
+    height: 8px;
+    background: linear-gradient(90deg, #4299e1 0%, #3182ce 50%, #2c5282 100%);
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(66, 153, 225, 0.3);
+}
+
+.matny {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 600px;
+    width: 100%;
+    animation: fadeInRight 0.8s ease-out 0.2s both;
+}
+
+.hero-card {
+    width: 100%;
+    background: var(--hero-card-bg);
+    border: 1px solid var(--hero-card-border);
+    border-radius: 30px;
+    padding: 40px;
+    box-shadow: 0 25px 60px rgba(15, 23, 42, 0.35),
+                0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+    backdrop-filter: blur(14px);
+    transition: all 0.4s ease;
+    color: var(--hero-card-text);
+}
+
+.hero-card .greeting-subtitle {
+    color: var(--hero-card-subtitle);
+    text-shadow: 0 8px 24px rgba(15, 23, 42, 0.25);
+}
+
+html[data-theme="dark"] .hero-card .greeting-subtitle {
+    text-shadow: 0 8px 24px rgba(2, 6, 23, 0.6);
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.greeting-section {
+    margin-bottom: 30px;
+}
+
+.greeting-title {
+    font-size: 64px;
+    font-weight: 800;
+    margin: 0 0 10px 0;
+    background: var(--greeting-title-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: var(--greeting-title-shadow);
+    letter-spacing: 3px;
+    transition: all 0.5s ease;
+}
+
+.greeting-subtitle {
+    font-size: 22px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+.button-group {
+    display: flex;
+    gap: 15px;
+    margin: 30px 0;
+    flex-wrap: wrap;
+}
+
+.button-group a {
+    text-decoration: none;
+}
+
+button, .btn-primary, .btn-secondary {
+    border: none;
+    border-radius: 50px;
+    padding: 14px 32px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+    color: white;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.btn-primary:hover::before {
+    left: 100%;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(66, 153, 225, 0.4);
+    background: linear-gradient(135deg, #3182ce 0%, #4299e1 100%);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.95);
+    color: #4299e1;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .btn-secondary {
+    background: rgba(30, 30, 46, 0.8);
+    color: #a78bfa;
+    border: 2px solid rgba(167, 139, 250, 0.3);
+}
+
+.btn-secondary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 1);
+    color: #3182ce;
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+    background: rgba(30, 30, 46, 1);
+    color: #c4b5fd;
+    box-shadow: 0 8px 25px rgba(167, 139, 250, 0.3);
+}
+
+.mn {
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+.mn p {
+    font-size: 18px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 300;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    max-width: 550px;
+}
+
+.hero-card .mn p {
+    color: var(--hero-body-text);
+    text-shadow: 0 10px 25px rgba(15, 23, 42, 0.3);
+}
+
+html[data-theme="dark"] .hero-card .mn p {
+    color: var(--hero-body-text);
+    text-shadow: 0 14px 30px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] .mn p {
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.sicial {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+}
+
+.sicial a {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.sicial a:hover {
+    transform: scale(1.2) rotate(5deg);
+}
+
+.sicial img {
+    width: 45px;
+    height: 45px;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    transition: filter 0.3s ease;
+}
+
+.sicial img:hover {
+    filter: drop-shadow(0 6px 12px rgba(255, 255, 255, 0.4));
+}
+
+.sicial svg {
+    width: 45px;
+    height: 45px;
+    color: #4299e1;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.sicial svg:hover {
+    transform: scale(1.1);
+    color: #2c5282;
+}
+
+.sicial .social-link {
+    width: 58px;
+    height: 58px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.35);
+    backdrop-filter: blur(12px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.sicial .social-link:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 20px 45px rgba(15, 23, 42, 0.45);
+}
+
+.sicial .social-link svg {
+    width: 28px;
+    height: 28px;
+}
+
+.instagram-link {
+    background: radial-gradient(circle at 30% 30%, #fdf497, #fd5949, #d6249f, #285AEB);
+    border: none;
+    box-shadow: 0 25px 55px rgba(40, 90, 235, 0.4);
+}
+
+.instagram-link .instagram-glyph {
+    filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.35));
+}
+
+.telegram-link {
+    color: #7dd3fc;
+    background: rgba(56, 189, 248, 0.12);
+    border: 1px solid rgba(56, 189, 248, 0.45);
+}
+
+.telegram-link:hover {
+    border-color: rgba(125, 211, 252, 0.8);
+    box-shadow: 0 28px 60px rgba(56, 189, 248, 0.35);
+}
+
+@media (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+        gap: 40px;
+        padding: 30px 20px;
+        margin-top: 70px;
+    }
+    
+    .top-nav {
+        padding: 15px 20px;
+    }
+    
+    .nav-link {
+        font-size: 12px;
+        padding: 8px 16px;
+    }
+    
+    .box0 {
+        max-width: 100%;
+    }
+    
+    .matny {
+        align-items: center;
+        text-align: center;
+    }
+    
+    .greeting-title {
+        font-size: 48px;
+    }
+    
+    .button-group {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        background-size: 300% 300%;
+    }
+    
+    .top-nav {
+        padding: 12px 15px;
+        right: 0;
+        left: 0;
+        justify-content: center;
+    }
+    
+    .nav-container {
+        gap: 8px;
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .nav-link {
+        font-size: 11px;
+        padding: 8px 14px;
+    }
+    
+    .theme-toggle {
+        width: 38px;
+        height: 38px;
+    }
+    
+    .theme-toggle svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .container {
+        padding: 20px 15px;
+        margin-top: 70px;
+    }
+    
+    .box0 {
+        padding: 30px 20px;
+        border-radius: 20px;
+    }
+    
+    .box3 img {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .box4 h1 {
+        font-size: 32px;
+    }
+    
+    .greeting-title {
+        font-size: 36px;
+    }
+    
+    .greeting-subtitle {
+        font-size: 18px;
+    }
+    
+    .mn p {
+        font-size: 16px;
+    }
+    
+    button, .btn-primary, .btn-secondary {
+        padding: 12px 24px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .top-nav {
+        padding: 10px 10px;
+    }
+    
+    .nav-link {
+        font-size: 10px;
+        padding: 6px 12px;
+    }
+    
+    .container {
+        margin-top: 60px;
+    }
+    
+    .box3 img {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .box4 h1 {
+        font-size: 28px;
+    }
+    
+    .greeting-title {
+        font-size: 32px;
+    }
+    
+    .button-group {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    button, .btn-primary, .btn-secondary {
+        width: 100%;
+    }
+}
+
+    </style>
+<nav class="top-nav">
+    <div class="nav-container">
+        <a href="site khodam.html" class="nav-link active">HOME</a>
+        <a href="sitekhodams2.html" target="_blank" class="nav-link">RESUME</a>
+        <a href="projects.html" target="_blank" class="nav-link">PROJECTS</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        </button>
+    </div>
+</nav>
+<div class="container">
+    <div class="box0">
+        <div class="box1">
+            <div class="box2">
+                <div class="box3">
+                   <img src="998b9622f90cdbca6aedac712e00794d.jpg" alt="Ariyan Da">
+                </div>
+                <div class="box4">
+                   <h1>
+                    Ariyan
+                    <br>
+                    Da
+                   </h1>
+                </div>
+                <div class="box5">
+                    <p class="matn">Project Manager</p>
+                </div>
+                <div class="box6">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="matny">
+        <div class="hero-card">
+            <div class="greeting-section">
+                <h1 class="greeting-title">Hello</h1>
+                <p class="greeting-subtitle">here's who I am & what I do</p>
+            </div>
+            
+            <div class="button-group">
+                <a href="index.html" target="_blank">
+                    <button type="button" class="btn-primary">RESUME</button>
+                </a>
+                <a href="projects.html" target="_blank">
+                    <button class="btn-secondary">PROJECTS</button>
+                </a>
+            </div>
+
+            <div class="mn">
+                <p>I'm an HTML developer who's just getting started. I have a good understanding of Figma, and I'm fairly comfortable with English for learning and working.</p>
+            </div>
+            
+            <div class="sicial">
+                <a href="https://www.instagram.com/ic0ry/?hl=en" target="_blank" aria-label="Instagram" class="social-link instagram-link">
+                    <svg class="instagram-glyph" viewBox="0 0 24 24" role="img" aria-hidden="true" focusable="false">
+                        <defs>
+                            <linearGradient id="instaGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#f58529"/>
+                                <stop offset="35%" stop-color="#feda77"/>
+                                <stop offset="55%" stop-color="#dd2a7b"/>
+                                <stop offset="80%" stop-color="#8134af"/>
+                                <stop offset="100%" stop-color="#515bd4"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M7 2h10c2.76 0 5 2.24 5 5v10c0 2.76-2.24 5-5 5H7c-2.76 0-5-2.24-5-5V7c0-2.76 2.24-5 5-5zm0 2c-1.66 0-3 1.34-3 3v10c0 1.66 1.34 3 3 3h10c1.66 0 3-1.34 3-3V7c0-1.66-1.34-3-3-3H7zm5 3.5a5.5 5.5 0 110 11 5.5 5.5 0 010-11zm0 2.2a3.3 3.3 0 100 6.6 3.3 3.3 0 000-6.6zm6.75-4.2a1.05 1.05 0 11-2.1 0 1.05 1.05 0 012.1 0z" fill="url(#instaGradient)"/>
+                    </svg>
+                </a>
+                <a href="https://t.me/AYN1021" target="_blank" aria-label="Telegram" class="social-link telegram-link">
+                    <svg class="social-icon" viewBox="0 0 24 24" role="img" aria-hidden="true">
+                        <path d="M9.04 15.33l-.37 5.2c.53 0 .76-.23 1.03-.5l2.48-2.37 5.15 3.76c.94.52 1.62.25 1.87-.87l3.39-15.95.01-.01c.3-1.39-.5-1.94-1.4-1.6L1.62 9.7c-1.36.53-1.34 1.28-.23 1.62l5.38 1.68L19.62 4.6c.64-.42 1.22-.19.74.23" fill="currentColor"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Dark Mode Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    
+    // Check for saved theme preference or default to light mode
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', currentTheme);
+    
+    // Update toggle icon based on current theme
+    function updateToggleIcon() {
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        themeToggle.querySelector('.sun-icon').style.display = isDark ? 'none' : 'block';
+        themeToggle.querySelector('.moon-icon').style.display = isDark ? 'block' : 'none';
+    }
+    
+    updateToggleIcon();
+    
+    // Toggle theme on button click
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateToggleIcon();
+    });
+</script>
+

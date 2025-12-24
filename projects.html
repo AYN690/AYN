@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Ariyan Da</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --accent: #4299e1;
+            --accent-secondary: #3182ce;
+            --accent-tertiary: #2c5282;
+            --text: #1f2933;
+            --muted: #627d98;
+            --white: #ffffff;
+            --bg-gradient-light: linear-gradient(135deg, #2d3748 0%, #4a5568 25%, #718096 50%, #4a5568 75%, #2d3748 100%);
+            --bg-gradient-dark: linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #533483 75%, #1a1a2e 100%);
+            --card-bg-light: rgba(247, 250, 252, 0.95);
+            --card-bg-dark: rgba(30, 30, 46, 0.95);
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--bg-gradient-light);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text);
+            padding: 40px 20px;
+            transition: background 0.5s ease;
+        }
+
+        [data-theme="dark"] body {
+            background: var(--bg-gradient-dark);
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-top: 80px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header {
+            background: var(--card-bg-light);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 50px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2),
+                        0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+            transition: all 0.5s ease;
+        }
+
+        [data-theme="dark"] header {
+            background: var(--card-bg-dark);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6),
+                        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+        }
+
+        .header-content {
+            display: grid;
+            gap: 40px;
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 900px) {
+            .header-content {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+
+        .intro {
+            animation: slideInLeft 0.6s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .tagline {
+            display: inline-block;
+            padding: 8px 18px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+            color: white;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .intro h1 {
+            font-size: clamp(32px, 5vw, 52px);
+            font-weight: 800;
+            margin: 0 0 20px 0;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+
+        .intro p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--muted);
+            margin-bottom: 30px;
+        }
+
+        .cta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .cta a {
+            text-decoration: none;
+        }
+
+        .cta button {
+            border: none;
+            cursor: pointer;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cta button.primary {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .cta button.secondary {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--accent);
+            border: 2px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .cta button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .cta button.primary:hover {
+            background: linear-gradient(135deg, var(--accent-secondary) 0%, var(--accent) 100%);
+        }
+
+        .highlights {
+            animation: slideInRight 0.6s ease-out 0.2s both;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .section-title h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 0;
+        }
+
+        .skills-grid {
+            display: grid;
+            gap: 15px;
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 480px) {
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .skill-block {
+            background: rgba(247, 250, 252, 0.7);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(66, 153, 225, 0.1);
+            border-radius: 16px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .skill-block:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+
+        .skill-block span {
+            display: block;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .skill-block small {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        .section-card {
+            background: var(--card-bg-light);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2),
+                        0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+            animation: fadeInUp 0.6s ease-out;
+            transition: all 0.5s ease;
+        }
+
+        [data-theme="dark"] .section-card {
+            background: var(--card-bg-dark);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6),
+                        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .projects-grid {
+            display: grid;
+            gap: 25px;
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 768px) {
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .project-card {
+            background: linear-gradient(145deg, rgba(247, 250, 252, 0.9), rgba(237, 242, 247, 0.7));
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(66, 153, 225, 0.15);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        [data-theme="dark"] .project-card {
+            background: linear-gradient(145deg, rgba(30, 30, 46, 0.9), rgba(26, 26, 46, 0.7));
+            border: 1px solid rgba(167, 139, 250, 0.2);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent-secondary) 50%, var(--accent-tertiary) 100%);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+
+        .project-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 15px;
+            letter-spacing: -0.3px;
+        }
+
+        .project-meta {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .chip {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
+            color: var(--accent);
+            border-radius: 50px;
+            padding: 6px 14px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .project-card p {
+            color: var(--muted);
+            line-height: 1.8;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .project-links a {
+            text-decoration: none;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+            padding: 8px 0;
+        }
+
+        .project-links a:hover {
+            color: var(--accent-secondary);
+            transform: translateX(5px);
+        }
+
+        .project-links a::after {
+            content: '→';
+            transition: transform 0.3s ease;
+        }
+
+        .project-links a:hover::after {
+            transform: translateX(3px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 16px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        footer p {
+            margin: 0;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 15px;
+            }
+            
+            .top-nav {
+                padding: 12px 15px;
+                right: 0;
+                left: 0;
+                justify-content: center;
+            }
+            
+            .nav-container {
+                gap: 8px;
+                justify-content: center;
+                width: 100%;
+            }
+            
+            .nav-link {
+                font-size: 11px;
+                padding: 8px 14px;
+            }
+            
+            .theme-toggle {
+                width: 38px;
+                height: 38px;
+            }
+            
+            .theme-toggle svg {
+                width: 18px;
+                height: 18px;
+            }
+            
+            .container {
+                margin-top: 70px;
+            }
+
+            header {
+                padding: 35px 25px;
+                border-radius: 20px;
+            }
+
+            .section-card {
+                padding: 30px 25px;
+                border-radius: 20px;
+            }
+
+            .project-card {
+                padding: 25px 20px;
+            }
+
+            .intro h1 {
+                font-size: 32px;
+            }
+
+            .intro p {
+                font-size: 16px;
+            }
+
+            .section-title h2 {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .top-nav {
+                padding: 10px 10px;
+            }
+            
+            .nav-link {
+                font-size: 10px;
+                padding: 6px 12px;
+            }
+            
+            .theme-toggle {
+                width: 34px;
+                height: 34px;
+            }
+            
+            .theme-toggle svg {
+                width: 16px;
+                height: 16px;
+            }
+            
+            .container {
+                margin-top: 60px;
+            }
+            
+            header {
+                padding: 30px 20px;
+            }
+
+            .section-card {
+                padding: 25px 20px;
+            }
+
+            .project-card {
+                padding: 20px 18px;
+            }
+
+            .cta button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        .top-nav {
+            position: fixed;
+            top: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 30px;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .nav-container {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 600;
+            font-size: 14px;
+            padding: 10px 20px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            color: white;
+        }
+
+        .nav-link.active {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 0;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .theme-toggle svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover svg {
+            transform: rotate(15deg);
+        }
+
+        .moon-icon {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-container">
+            <a href="site khodam.html" class="nav-link">HOME</a>
+            <a href="sitekhodams2.html" target="_blank" class="nav-link">RESUME</a>
+            <a href="projects.html" class="nav-link active">PROJECTS</a>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+                <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="intro">
+                    <span class="tagline">Project Portfolio</span>
+                    <h1>Crafting clean interfaces and simple user flows.</h1>
+                    <p>I'm Ariyan, a junior front-end enthusiast. I enjoy turning ideas into responsive layouts and experimenting with micro-animations that bring a page to life.</p>
+                    <div class="cta">
+                        <a href="site khodam.html">
+                            <button class="secondary">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                                </svg>
+                                Back Home
+                            </button>
+                        </a>
+                        <a href="sitekhodams2.html" target="_blank">
+                            <button class="primary">View Resume</button>
+                        </a>
+                    </div>
+                </div>
+                <div class="highlights">
+                    <div class="section-title">
+                        <h2>Highlights</h2>
+                    </div>
+                    <div class="skills-grid">
+                        <div class="skill-block">
+                            <span>Pixel-perfect Layouts</span>
+                            <small>Landing pages, portfolio sites, responsive grids</small>
+                        </div>
+                        <div class="skill-block">
+                            <span>Design Handoff</span>
+                            <small>Figma workflow, component libraries, spacing systems</small>
+                        </div>
+                        <div class="skill-block">
+                            <span>Clean Code</span>
+                            <small>HTML5 semantics, CSS architecture, reusable patterns</small>
+                        </div>
+                        <div class="skill-block">
+                            <span>Quick Iterations</span>
+                            <small>Prototype-driven approach, feedback loops, polish</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section>
+            <div class="section-card">
+                <div class="section-title">
+                    <h2>Featured Projects</h2>
+                    <span class="tagline" style="font-size: 11px; padding: 6px 14px;">Recent Work</span>
+                </div>
+                <div class="projects-grid">
+                    <article class="project-card">
+                        <h3>Modern Portfolio</h3>
+                        <div class="project-meta">
+                            <span class="chip">HTML</span>
+                            <span class="chip">CSS</span>
+                            <span class="chip">Responsive</span>
+                        </div>
+                        <p>A personal portfolio concept with a hero section, interactive project showcase, and a focus on subtle gradients and typography.</p>
+                        <div class="project-links">
+                            <a href="#">Preview</a>
+                            <a href="#">Case Study</a>
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <h3>Product Landing</h3>
+                        <div class="project-meta">
+                            <span class="chip">UI</span>
+                            <span class="chip">Animation</span>
+                            <span class="chip">Prototype</span>
+                        </div>
+                        <p>A concept landing page made in Figma and translated into code with smooth section transitions and call-to-action placements.</p>
+                        <div class="project-links">
+                            <a href="#">Preview</a>
+                            <a href="#">Case Study</a>
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <h3>Dashboard Widgets</h3>
+                        <div class="project-meta">
+                            <span class="chip">Components</span>
+                            <span class="chip">Dark Mode</span>
+                            <span class="chip">Accessibility</span>
+                        </div>
+                        <p>A set of reusable dashboard widgets exploring different data visualizations with attention to color contrast and clarity.</p>
+                        <div class="project-links">
+                            <a href="#">Preview</a>
+                            <a href="#">Case Study</a>
+                        </div>
+                    </article>
+
+                    <article class="project-card">
+                        <h3>Community Blog</h3>
+                        <div class="project-meta">
+                            <span class="chip">Front-end</span>
+                            <span class="chip">Typography</span>
+                            <span class="chip">SEO</span>
+                        </div>
+                        <p>A blog layout focused on readability, featuring a curated homepage, category tags, and polished article detail pages.</p>
+                        <div class="project-links">
+                            <a href="#">Preview</a>
+                            <a href="#">Case Study</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-card">
+                <div class="section-title">
+                    <h2>Process & Values</h2>
+                    <span class="tagline" style="font-size: 11px; padding: 6px 14px;">How I Work</span>
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-block">
+                        <span>Discovery</span>
+                        <small>Define goals, audience, and success metrics.</small>
+                    </div>
+                    <div class="skill-block">
+                        <span>Wireframe & Prototype</span>
+                        <small>Explore structure early, gather feedback quickly.</small>
+                    </div>
+                    <div class="skill-block">
+                        <span>Polish</span>
+                        <small>Refine details, ensure responsive behavior, ship.</small>
+                    </div>
+                    <div class="skill-block">
+                        <span>Collaboration</span>
+                        <small>Open communication, quick check-ins, shared vision.</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>Open to collaborating on new ideas. Let's build something memorable.</p>
+        </footer>
+    </div>
+    <script>
+        // Dark Mode Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', currentTheme);
+        
+        // Update toggle icon based on current theme
+        function updateToggleIcon() {
+            const isDark = html.getAttribute('data-theme') === 'dark';
+            themeToggle.querySelector('.sun-icon').style.display = isDark ? 'none' : 'block';
+            themeToggle.querySelector('.moon-icon').style.display = isDark ? 'block' : 'none';
+        }
+        
+        updateToggleIcon();
+        
+        // Toggle theme on button click
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateToggleIcon();
+        });
+    </script>
+</body>
+</html>

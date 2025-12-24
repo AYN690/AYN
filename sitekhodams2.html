@@ -1,0 +1,700 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume - Ariyan Da</title>
+    
+</head>
+<body>
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-gradient-light: linear-gradient(135deg, #2d3748 0%, #4a5568 25%, #718096 50%, #4a5568 75%, #2d3748 100%);
+    --bg-gradient-dark: linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #533483 75%, #1a1a2e 100%);
+    --card-bg-light: rgba(247, 250, 252, 0.95);
+    --card-bg-dark: rgba(30, 30, 46, 0.95);
+    --text-light: #1f2933;
+    --text-dark: rgba(255, 255, 255, 0.9);
+    --muted-light: #627d98;
+    --muted-dark: rgba(255, 255, 255, 0.7);
+}
+
+body {
+    min-height: 100vh;
+    background: var(--bg-gradient-light);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-light);
+    padding: 40px 20px;
+    position: relative;
+    transition: background 0.5s ease;
+}
+
+[data-theme="dark"] body {
+    background: var(--bg-gradient-dark);
+    color: var(--text-dark);
+}
+
+.top-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 20px 30px;
+    animation: slideDown 0.6s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.nav-container {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 600;
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    color: white;
+}
+
+.nav-link.active {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+.theme-toggle {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 0;
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.theme-toggle svg {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover svg {
+    transform: rotate(15deg);
+}
+
+.moon-icon {
+    display: none;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    margin-top: 80px;
+    animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.resume-header {
+    background: var(--card-bg-light);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 40px;
+    margin-bottom: 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2),
+                0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+    transition: all 0.5s ease;
+}
+
+[data-theme="dark"] .resume-header {
+    background: var(--card-bg-dark);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.resume-title {
+    font-size: 48px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+.download-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(66, 153, 225, 0.3);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(66, 153, 225, 0.4);
+    background: linear-gradient(135deg, #3182ce 0%, #4299e1 100%);
+}
+
+.download-btn:active {
+    transform: translateY(0);
+}
+
+.download-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+section {
+    margin-bottom: 60px;
+}
+
+.section-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 40px;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+    letter-spacing: 1px;
+}
+
+.timeline {
+    position: relative;
+    padding-left: 40px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.4) 100%);
+    border-radius: 10px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 50px;
+    animation: slideInLeft 0.6s ease-out;
+    animation-fill-mode: both;
+}
+
+.timeline-item:nth-child(1) { animation-delay: 0.1s; }
+.timeline-item:nth-child(2) { animation-delay: 0.2s; }
+.timeline-item:nth-child(3) { animation-delay: 0.3s; }
+.timeline-item:nth-child(4) { animation-delay: 0.4s; }
+.timeline-item:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -32px;
+    top: 8px;
+    width: 16px;
+    height: 16px;
+    background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+    border-radius: 50%;
+    border: 4px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 15px rgba(66, 153, 225, 0.4);
+    z-index: 1;
+}
+
+.timeline-content {
+    background: var(--card-bg-light);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15),
+                0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+[data-theme="dark"] .timeline-content {
+    background: var(--card-bg-dark);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+}
+
+.timeline-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+}
+
+.timeline-content:hover {
+    transform: translateX(10px);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2),
+                0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+}
+
+.date-badge {
+    display: inline-block;
+    padding: 8px 18px;
+    background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+    color: white;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(66, 153, 225, 0.3);
+    letter-spacing: 0.5px;
+}
+
+.job-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #4299e1;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+}
+
+.company-info {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2933;
+    margin-bottom: 5px;
+    opacity: 0.9;
+}
+
+.location-info {
+    font-size: 16px;
+    color: #627d98;
+    margin-bottom: 20px;
+    font-weight: 400;
+}
+
+.job-description {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--muted-light);
+    margin-top: 15px;
+    transition: color 0.5s ease;
+}
+
+[data-theme="dark"] .job-description {
+    color: var(--muted-dark);
+}
+
+[data-theme="dark"] .company-info {
+    color: var(--text-dark);
+}
+
+[data-theme="dark"] .location-info {
+    color: var(--muted-dark);
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 20px 15px;
+    }
+    
+    .top-nav {
+        padding: 12px 15px;
+        right: 0;
+        left: 0;
+        justify-content: center;
+    }
+    
+    .nav-container {
+        gap: 8px;
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .nav-link {
+        font-size: 11px;
+        padding: 8px 14px;
+    }
+    
+    .theme-toggle {
+        width: 38px;
+        height: 38px;
+    }
+    
+    .theme-toggle svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .container {
+        margin-top: 70px;
+    }
+
+    .resume-header {
+        padding: 30px 25px;
+        border-radius: 20px;
+    }
+
+    .resume-title {
+        font-size: 36px;
+    }
+
+    .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .download-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .section-title {
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+
+    .timeline {
+        padding-left: 30px;
+    }
+
+    .timeline::before {
+        left: 10px;
+        width: 2px;
+    }
+
+    .timeline-marker {
+        left: -22px;
+        width: 14px;
+        height: 14px;
+        border-width: 3px;
+    }
+
+    .timeline-content {
+        padding: 25px 20px;
+        border-radius: 16px;
+    }
+
+    .timeline-content:hover {
+        transform: translateX(5px);
+    }
+
+    .job-title {
+        font-size: 20px;
+    }
+
+    .company-info {
+        font-size: 16px;
+    }
+
+    .location-info {
+        font-size: 14px;
+    }
+
+    .job-description {
+        font-size: 15px;
+        line-height: 1.7;
+    }
+}
+
+@media (max-width: 480px) {
+    .top-nav {
+        padding: 10px 10px;
+    }
+    
+    .nav-link {
+        font-size: 10px;
+        padding: 6px 12px;
+    }
+    
+    .theme-toggle {
+        width: 34px;
+        height: 34px;
+    }
+    
+    .theme-toggle svg {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .container {
+        margin-top: 60px;
+    }
+    
+    .resume-title {
+        font-size: 28px;
+    }
+
+    .section-title {
+        font-size: 24px;
+    }
+
+    .timeline-content {
+        padding: 20px 15px;
+    }
+
+    .date-badge {
+        padding: 6px 14px;
+        font-size: 12px;
+    }
+
+    .job-title {
+        font-size: 18px;
+    }
+
+    .company-info {
+        font-size: 15px;
+    }
+
+    .job-description {
+        font-size: 14px;
+    }
+}
+
+
+    </style>
+    <nav class="top-nav">
+        <div class="nav-container">
+            <a href="site khodam.html" class="nav-link">HOME</a>
+            <a href="sitekhodams2.html" class="nav-link active">RESUME</a>
+            <a href="projects.html" target="_blank" class="nav-link">PROJECTS</a>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+                <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+    <div class="container">
+        <header class="resume-header">
+            <div class="header-content">
+                <h1 class="resume-title">Resume</h1>
+                <button class="download-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    DOWNLOAD CV
+                </button>
+            </div>
+        </header>
+
+        <section class="experience-section">
+            <h2 class="section-title">Experience</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="date-badge">2025 - Present</div>
+                        <h3 class="job-title">JOB POSITION</h3>
+                        <p class="company-info">Company Name</p>
+                        <p class="location-info">Company Location</p>
+                        <p class="job-description">
+                            I'm a paragraph. Click here to add your own text and edit me. It's easy. Just click "edit text" or double click me to add your own content and make changes to the font.
+                            <br><br>
+                            I'm a great place for you to tell a story and let your users know a little more about you.
+            </p>
+        </div>
+    </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="date-badge">2025 - Present</div>
+                        <h3 class="job-title">JOB POSITION</h3>
+                        <p class="company-info">Company Name</p>
+                        <p class="location-info">Company Location</p>
+                        <p class="job-description">
+                            I'm a paragraph. Click here to add your own text and edit me. It's easy. Just click "edit text" or double click me to add your own content and make changes to the font.
+                            <br><br>
+                            I'm a great place for you to tell a story and let your users know a little more about you.
+            </p>
+        </div>
+    </div>
+        </div>
+        </section>
+
+        <section class="education-section">
+            <h2 class="section-title">Education</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="date-badge">2025 - Present</div>
+                        <h3 class="job-title">DEGREE / CERTIFICATION</h3>
+                        <p class="company-info">Institution Name</p>
+                        <p class="location-info">Institution Location</p>
+                        <p class="job-description">
+                            I'm a paragraph. Click here to add your own text and edit me. It's easy. Just click "edit text" or double click me to add your own content and make changes to the font.
+                            <br><br>
+                            I'm a great place for you to tell a story and let your users know a little more about you.
+            </p>
+        </div>
+    </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="date-badge">2025 - Present</div>
+                        <h3 class="job-title">DEGREE / CERTIFICATION</h3>
+                        <p class="company-info">Institution Name</p>
+                        <p class="location-info">Institution Location</p>
+                        <p class="job-description">
+                            I'm a paragraph. Click here to add your own text and edit me. It's easy. Just click "edit text" or double click me to add your own content and make changes to the font.
+                            <br><br>
+                            I'm a great place for you to tell a story and let your users know a little more about you.
+            </p>
+        </div>
+    </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="date-badge">2025 - Present</div>
+                        <h3 class="job-title">DEGREE / CERTIFICATION</h3>
+                        <p class="company-info">Institution Name</p>
+                        <p class="location-info">Institution Location</p>
+                        <p class="job-description">
+                            I'm a paragraph. Click here to add your own text and edit me. It's easy. Just click "edit text" or double click me to add your own content and make changes to the font.
+                            <br><br>
+                            I'm a great place for you to tell a story and let your users know a little more about you.
+            </p>
+        </div>
+    </div>
+            </div>
+        </section>
+    </div>
+    <script>
+        // Dark Mode Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', currentTheme);
+        
+        // Update toggle icon based on current theme
+        function updateToggleIcon() {
+            const isDark = html.getAttribute('data-theme') === 'dark';
+            themeToggle.querySelector('.sun-icon').style.display = isDark ? 'none' : 'block';
+            themeToggle.querySelector('.moon-icon').style.display = isDark ? 'block' : 'none';
+        }
+        
+        updateToggleIcon();
+        
+        // Toggle theme on button click
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateToggleIcon();
+        });
+    </script>
+</body>
+</html>
